@@ -1,24 +1,30 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FullCalendar />
+  
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FullCalendar from './components/FullCalendar.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    FullCalendar
+  }, 
+ 
 }
 </script>
 
 <style lang="scss">
+* {
+    font-family: montserrat, sans-serif;
+
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: montserrat, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
