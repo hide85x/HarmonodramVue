@@ -25,28 +25,20 @@
         <form v-on:submit.prevent="submit">
           <label id="chooseplay" for="play">Wybierz przedstawienie</label>
 
-          <select name="play" id="play">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+          <select name="play" id="play" v-model="selectedPlay">
+            <option :value="play" selected v-for="play in plays" :key="play.title">{{play.title}}</option>
           </select>
         </form>
         <form v-on:submit.prevent="submit">
           <label for="title">title :</label>
-          <input
-            id="title"
-            type="text"
-            v-model="inputTitle"
-            :placeholder="event.title"
-            name="title"
-          />
+          <input id="title" type="text" :placeholder="this.selectedPlay.title" name="title" />
+          <p>title:{{this.selectedPlay.title || this.event.title}}</p>
           <p>starts: {{dateStart}}</p>
           <p>ends: {{dateEnd}}</p>
           <textarea v-model="textarea" name id cols="30" rows="6"></textarea>
         </form>
       </fieldset>
-        <Play/>
+      <Play :selectedPlay="selectedPlay" />
     </div>
 
     <div class="controls">
@@ -59,7 +51,7 @@
 </template>
 
 <script>
-import Play from './Play'
+import Play from "./Play";
 
 import axios from "axios";
 import moment from "moment";
@@ -67,19 +59,31 @@ import moment from "moment";
 import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "EventModal",
-  components: {Play},
+  components: { Play },
   data() {
     return {
-      inputTitle: "",
       radioInput: "",
       textarea: "",
+      selectedPlay: "",
+      plays: [
+        {
+          title: "Hamlet",
+          actors: ["Janek Dupa", " Staś Zgaś", "Tomek Romek"],
+          tech: ["MAreczek C", "Dariusz MNiriusz", "Gwozdzoui Młot"],
+        },
+        {
+          title: "Romeo i Julia",
+          actors: ["Blind Joe", " Staś Zgaśsd", "Wladek niejadek"],
+          tech: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
+        },
+      ],
     };
   },
-  watch: {
-    radioInput: function() {
-      this.$emit('input', this.picked)
-    }
-  },
+  // watch: {
+  //   radioInput: function () {
+  //     this.$emit("input", this.picked);
+  //   },
+  // },
   computed: {
     ...mapGetters(["EVENTS"]),
     dateStart() {
@@ -94,13 +98,16 @@ export default {
     event: Object,
   },
   methods: {
+    onChange(event) {
+      console.log(event.target.value);
+    },
     ...mapMutations(["ADD_EVENT"]),
     saveEvent() {
       const payload = {
-        title: this.inputTitle,
+        title: this.selectedPlay.title,
         start: this.event.startStr,
         end: this.event.endStr,
-        color: this.radioInput
+        color: this.radioInput,
       };
       if (!payload.title) {
         alert("tytul lajzo!");
@@ -122,5 +129,5 @@ export default {
 </script>
 
 <style scoped  lang="scss">
-@import './event.scss';
+@import "./event.scss";
 </style>

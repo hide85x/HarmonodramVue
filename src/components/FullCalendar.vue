@@ -28,10 +28,8 @@ import EventModal from "./EventModal";
 moment.locale("pl");
 
 export default {
-  data(){
-    return {
-      
-    }
+  data() {
+    return {};
   },
   components: {
     FullCalendar,
@@ -65,10 +63,6 @@ export default {
       .get("http://localhost:3000/event/all")
       .then((result) => {
         result.data.map((el) => {
-          // console.log(el.start + " before");
-          // moment(String(el.start)).format("YYYY-MM-DD");
-          // console.log(el.start + "  after");
-
           this.ADD_EVENT(el);
         });
       })
@@ -78,6 +72,8 @@ export default {
     ...mapMutations(["ADD_EVENT"]),
 
     handleClick(arg) {
+      //sprawzamy czy klikamy w nowy event czy tworzymy nowy
+
       const isNewEvent = !arg.hasOwnProperty("event");
       if (isNewEvent) {
         console.log(arg.startStr);
@@ -85,13 +81,9 @@ export default {
         this.$modal.show(EventModal, {
           text: "Auto generatewd msg from modal",
           event: arg,
-          // width:"90%",
-          // height:"90%"
         });
         return;
       }
-      // arg.startStr= moment(arg.event.startStr).format('YYYY/MM/DD dd hh-mm');
-      // arg.endStr= moment(arg.event.endStr).format('YYYY/MM/DD dd hh-mm');
       this.$modal.show(EventModal, {
         text: "Auto generatewd msg from modal",
         event: arg.event,
