@@ -11,7 +11,7 @@ export default new Vuex.Store({
       end: "2020-08-28",
       title: "Romeo i Julia",
       actors: ["Blind Joe", " Staś Zgaśsd", "Wladek niejadek"],
-      tech: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
+      techs: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
 
     }]
   },

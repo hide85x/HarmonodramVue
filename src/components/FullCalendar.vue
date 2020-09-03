@@ -44,7 +44,7 @@ export default {
           timeGridPlugin,
           momentPlugin,
         ],
-        initialView: "dayGridMonth",
+        initialView: "timeGridWeek",
         select: this.handleClick,
         editable: true,
         selectable: true,
@@ -103,8 +103,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-#fullCalendar {
-}
+
 .container {
   .calendar {
     padding: 200px;

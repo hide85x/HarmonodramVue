@@ -56,7 +56,7 @@
     <div class="controls">
       <div>
         <button id="close" @click="$modal.hideAll()">X</button>
-        <button @click="saveEvent">SAVE</button>
+        <button id="save" @click="saveEvent" value="Save">save</button>
       </div>
     </div>
   </div>
@@ -83,12 +83,12 @@ export default {
         {
           title: "Hamlet",
           actors: ["Janek Dupa", " Staś Zgaś", "Tomek Romek"],
-          tech: ["MAreczek C", "Dariusz MNiriusz", "Gwozdzoui Młot"],
+          techs: ["MAreczek C", "Dariusz MNiriusz", "Gwozdzoui Młot"],
         },
         {
           title: "Romeo i Julia",
           actors: ["Blind Joe", " Staś Zgaśsd", "Wladek niejadek"],
-          tech: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
+          techs: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
         },
       ],
     };
@@ -109,7 +109,7 @@ export default {
        this.playFromEvent = {
           title: this.event._def.title || "",
           actors: this.event._def.extendedProps.actors || "",
-          tech: this.event._def.extendedProps.tech || "",
+          techs: this.event._def.extendedProps.techs || "",
         };
       } else {
         return
@@ -137,7 +137,7 @@ export default {
         end: this.event.endStr,
         color: this.radioInput,
         actors: this.playFromEvent.actors,
-        tech: this.playFromEvent.tech,
+        techs: this.playFromEvent.techs,
       };
       if (!payload.title) {
         alert("tytul lajzo!");

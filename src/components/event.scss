@@ -104,24 +104,36 @@
   
       button {
         width: 50px;
+        padding: 1px;
         height: 25px;
-        text-align: center;
-        background-color: dodgerblue;
-        margin: 3px;
-        color: white;
+        background-color: transparent;
+        margin: 5px;
         border-radius: 4px;
-        transition: all 0.5s ease;
+        transition: all 0.2s ease;
+        font-weight: 400;
         &:hover {
           cursor: pointer;
-          color: rgb(2, 255, 2);
-          filter: saturate(4);
+          // transform: scale(1.1);
+
+          // box-shadow: 0 0 20px 2px  rgba(0, 0, 0, 0.829);
         }
       }
       #close {
-        bottom: 1px solid red;
-        background-color: rgb(255, 0, 0);
-        color: black;
-        font-weight: 600;
+        border: 2px solid red;
+        color: red;
+        &:hover {
+          background-color: rgba(255, 0, 0, 0.200);
+
+        }
+      }
+      #save {
+        color: dodgerblue;
+
+        border: 2px solid dodgerblue;
+        &:hover {
+          background-color: rgba(0, 162, 255, 0.200);
+        }
+
       }
     }
   }

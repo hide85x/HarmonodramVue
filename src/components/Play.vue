@@ -10,7 +10,7 @@
 
     <fieldset class="form actors">
       <legend>Technika</legend>
-      <div class="actor" v-for="actor in playFromEvent.tech" :key="actor.id">
+      <div class="actor" v-for="actor in playFromEvent.techs" :key="actor.id">
         <p>{{actor}}</p>
         <input type="checkbox" class="actorBtn" id="close" />
       </div>
