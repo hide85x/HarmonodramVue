@@ -76,16 +76,15 @@ export default {
 
       const isNewEvent = !arg.hasOwnProperty("event");
       if (isNewEvent) {
-        console.log(arg.startStr);
-        console.log(arg.startStr);
         this.$modal.show(EventModal, {
-          text: "Auto generatewd msg from modal",
           event: arg,
+          newEvent: true,
+          
         });
         return;
       }
       this.$modal.show(EventModal, {
-        text: "Auto generatewd msg from modal",
+        newEvent: false,
         event: arg.event,
       });
     },

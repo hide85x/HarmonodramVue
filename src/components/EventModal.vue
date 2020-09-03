@@ -24,23 +24,35 @@
         <legend>Szczegóły wydarzenia</legend>
         <form v-on:submit.prevent="submit">
           <label id="chooseplay" for="play">Wybierz przedstawienie</label>
-
-          <select name="play" id="play" v-model="selectedPlay">
-            <option :value="play" selected v-for="play in plays" :key="play.title">{{play.title}}</option>
+          <select name="play" id="play" v-model="playFromEvent">
+            <!-- <option v-if="playFromEvent" :selected="playFromEvent" :value="playFromEvent ">{{playFromEvent.title}}</option> -->
+            <option
+              :value="play"
+              :selected="true"
+              v-for="play in plays"
+              :key="play.title"
+            >{{play.title}}</option>
           </select>
         </form>
         <form v-on:submit.prevent="submit">
-          <label for="title">title :</label>
-          <input id="title" type="text" :placeholder="this.selectedPlay.title" name="title" />
-          <p>title:{{this.selectedPlay.title || this.event.title}}</p>
+          <label v-if="!playFromEvent.title" for="title">tile:</label>
+          <input
+            v-if="!playFromEvent.title"
+            id="title"
+            type="text"
+            v-model="titleFromInput"
+            :placeholder="playFromEvent.title || titleFromInput "
+            name="title"
+          />
+          <p v-if="playFromEvent">title:{{playFromEvent.title || titleFromInput}}</p>
           <p>starts: {{dateStart}}</p>
           <p>ends: {{dateEnd}}</p>
           <textarea v-model="textarea" name id cols="30" rows="6"></textarea>
         </form>
       </fieldset>
-      <Play :selectedPlay="selectedPlay" />
+      <!-- mozna podawac propsy z ifem -->
+      <Play :playFromEvent="playFromEvent" />
     </div>
-
     <div class="controls">
       <div>
         <button id="close" @click="$modal.hideAll()">X</button>
@@ -62,9 +74,11 @@ export default {
   components: { Play },
   data() {
     return {
+      titleFromInput: "",
       radioInput: "",
       textarea: "",
-      selectedPlay: "",
+      placeholder: this.titleFromInput,
+      playFromEvent: this.event,
       plays: [
         {
           title: "Hamlet",
@@ -80,34 +94,50 @@ export default {
     };
   },
   // watch: {
-  //   radioInput: function () {
-  //     this.$emit("input", this.picked);
-  //   },
+  //   placeholder(play) {
+  //     this.playFromEvent= play
+  //   }
   // },
+  // mounted: {
+  //   place: function placeholderCheck(){
+  //     console.log(titleFromInput + "  dupaaqa")
+  //   },
+
+  // },
+  created() {
+      if(!this.newEvent) {
+       this.playFromEvent = {
+          title: this.event._def.title || "",
+          actors: this.event._def.extendedProps.actors || "",
+          tech: this.event._def.extendedProps.tech || "",
+        };
+      } else {
+        return
+      }
+  },
   computed: {
     ...mapGetters(["EVENTS"]),
     dateStart() {
-      return moment(this.event.startStr).format("YYYY/MM/DD  h:mm");
+      return moment(this.event.startStr).format("YYYY/MM/DD  kk:mm");
     },
     dateEnd() {
-      return moment(this.event.endStr).format("YYYY/MM/DD  h:mm");
+      return moment(this.event.endStr).format("YYYY/MM/DD  kk:mm");
     },
   },
   props: {
-    text: String,
     event: Object,
+    newEvent: Boolean
   },
   methods: {
-    onChange(event) {
-      console.log(event.target.value);
-    },
     ...mapMutations(["ADD_EVENT"]),
     saveEvent() {
       const payload = {
-        title: this.selectedPlay.title,
+        title: this.playFromEvent.title || this.titleFromInput,
         start: this.event.startStr,
         end: this.event.endStr,
         color: this.radioInput,
+        actors: this.playFromEvent.actors,
+        tech: this.playFromEvent.tech,
       };
       if (!payload.title) {
         alert("tytul lajzo!");

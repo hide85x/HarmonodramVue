@@ -8,7 +8,11 @@ export default new Vuex.Store({
     events: [{
       title: "Dupa",
       start:"2020-08-24",
-      end: "2020-08-28"
+      end: "2020-08-28",
+      title: "Romeo i Julia",
+      actors: ["Blind Joe", " Staś Zgaśsd", "Wladek niejadek"],
+      tech: ["MAreczek B", "Miriusz Dariusz", "Sarnecki Sarna"],
+
     }]
   },
   getters: {

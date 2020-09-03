@@ -1,8 +1,8 @@
 <template>
-  <div class="team">
+  <div class="team" >
     <fieldset class="form actors">
       <legend>Aktorzy</legend>
-      <div class="actor" v-for="actor in this.selectedPlay.actors" :key="actor.id">
+      <div class="actor" v-for="actor in playFromEvent.actors" :key="actor.id">
         <p>{{actor}}</p>
         <input type="checkbox" class="actorBtn input" id="close" />
       </div>
@@ -10,7 +10,7 @@
 
     <fieldset class="form actors">
       <legend>Technika</legend>
-      <div class="actor" v-for="actor in selectedPlay.tech" :key="actor.id">
+      <div class="actor" v-for="actor in playFromEvent.tech" :key="actor.id">
         <p>{{actor}}</p>
         <input type="checkbox" class="actorBtn" id="close" />
       </div>
@@ -22,12 +22,12 @@
 export default {
   name: "Play",
   props: {
-    selectedPlay: ''
-
+    playFromEvent:{
+      type: Object || null,
+  }
   },
   computed: {
       sortedActors() {
-        console.log(this.selectedPlay)
          return this.actors.sort((a, b) => a.imię  > b.imię )
       }
   },
